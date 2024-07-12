@@ -1,4 +1,5 @@
 import { fetch } from "@/services/utils";
+import axios from "axios";
 
 
 // add interface
@@ -9,7 +10,7 @@ export class ShowsListService {
 
     fetchShowsList = async () => {
         try {
-            const response = await fetch.get('shows?page=1')
+            const response = await fetch.get('shows')
             this.showsList = response.data;
         } catch (error) {
             window.alert(`There is an error, ${error}`)
@@ -23,5 +24,15 @@ export class ShowsListService {
 
         await this.fetchShowsList()
         return this.showsList;
+    }
+
+    getShow = async (showId: number) => {
+        try {
+            const response = await fetch.get(`shows/${showId}`)
+            return response.data;
+        } catch (error) {
+            //@TODO: add a function/component to show the error DRY, with specific message - the Notify component?
+            window.alert(`There is an error, ${error}`)
+        }
     }
 }
