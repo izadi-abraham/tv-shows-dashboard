@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { ShowsListService } from "@/services/showsList";
-import { ref, watch } from "vue";
 import ShowCard from "@/components/ShowCard/ShowCard.vue";
 import ShowCardSkeleton from "@/components/ShowCard/ShowCardSkeleton.vue";
 import { useRouter } from "vue-router";
 import { useShowListStore } from "@/stores/show-list";
 import HomeViewHeading from "@/components/HomeViewHeading/HomeViewHeading.vue";
+import ShowFilter from "@/components/ShowFilter/ShowFilter.vue";
 
 
 const showListService = new ShowsListService();
@@ -13,14 +13,10 @@ const router = useRouter();
 const showListStore = useShowListStore()
 
 
-const activeFilters = ref<Set<string>>(new Set<string>());
-
-
 // Methods
 const initialize = async () => {
     showListStore.setLoading(true);
-    const showList = await showListService.getShowList();
-    showListStore.setShowList(showList)
+    await showListService.fetchShowsList();
     showListStore.sortShowsByRate()
     showListStore.setLoading(false);
 };
@@ -34,34 +30,9 @@ const redirectToShowView = (id: number) => {
     } )
 }
 
-const handleFilter = (event) => {
-    const clickedFilter = event.target.innerText;
-    console.log('event', clickedFilter)
-    activeFilters.value.has(clickedFilter) ? activeFilters.value.delete(clickedFilter) : activeFilters.value.add(clickedFilter);
-}
-
-
 initialize();
 
 
-// Watchers
-watch(() => activeFilters.value.size, (sizeOfActiveFilters) => {
-
-    // @TODO: move filtering to the store
-    // @TODO: implement the intersection, subset filter
-
-    if (sizeOfActiveFilters === 0) {
-        showListStore.setShowList([...showListService.showsList]);
-
-        return;
-    }
-
-    const filteredList = [...showListService.showsList.filter((show) => {
-        return show.genres.every((showGenre) => activeFilters.value.has(showGenre))
-    })]
-
-    showListStore.setShowList(filteredList)
-})
 
 
 // @TODO: list of requirements
@@ -97,20 +68,7 @@ watch(() => activeFilters.value.size, (sizeOfActiveFilters) => {
   <main class="home-view w-full flex flex-wrap justify-center items-center">
       <HomeViewHeading/>
       <!-- filter -->
-      <div class="flex flex-wrap p-8 text-base font-medium">
-          <div
-              v-for="(genre, key) in showListService.genres"
-              v-bind:key
-              class="py-1 px-4 mr-2 mb-2 cursor-pointer border border-gray-300 rounded-lg hover:text-gray-500 active:border-gray-600"
-              :class="{
-                  'text-green-800 border-green-400 hover:text-green-600': activeFilters.has(genre)
-              }"
-              @click="handleFilter"
-          >
-              {{ genre }}
-          </div>
-
-      </div>
+      <ShowFilter/>
 
       <div
           v-if="showListStore.isLoading"
@@ -121,14 +79,18 @@ watch(() => activeFilters.value.size, (sizeOfActiveFilters) => {
               v-bind:key
           />
       </div>
-      <ShowCard
+      <div
           v-else
-          v-for="(show, key) in showListStore.getShowList" v-bind:key
-          :image-url="show.image?.medium"
-          :name="show.name"
-          :genres="show.genres"
-          :rating="show.rating?.average ? Number(show.rating.average) : 'N/A'"
-          @click="() => redirectToShowView(show.id)"
-      />
+          class="show-cards-wrapper flex flex-wrap justify-center items-center"
+      >
+          <ShowCard
+              v-for="(show, key) in showListStore.getShowList" v-bind:key
+              :image-url="show.image?.medium"
+              :name="show.name"
+              :genres="show.genres"
+              :rating="show.rating?.average ? Number(show.rating.average) : 'N/A'"
+              @click="() => redirectToShowView(show.id)"
+          />
+      </div>
   </main>
 </template>

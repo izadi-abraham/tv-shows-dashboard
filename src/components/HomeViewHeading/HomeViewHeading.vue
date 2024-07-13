@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import SearchShows from "@/components/SearchShows/SearchShows.vue";
-import SortShows from "@/components/SortShows/SortShows.vue";
+import SearchShows from "@/components/ShowsSearch/SearchShows.vue";
+import SortShows from "@/components/ShowsSort/SortShows.vue";
 </script>
 
 <template>

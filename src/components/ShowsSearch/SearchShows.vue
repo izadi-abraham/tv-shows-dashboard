@@ -48,7 +48,7 @@ const clearSearch = () => {
 
 <template>
     <div
-        class="search-shows-component relative"
+        class="shows-search-component relative"
     >
         <input
             type="text"

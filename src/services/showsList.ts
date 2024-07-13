@@ -5,14 +5,13 @@ import { useShowListStore } from "@/stores/show-list";
 // add interface
 
 export class ShowsListService {
-    public showsList = [];
+    // public showsList = [];
     private genreSet: Set<string> = new Set();
     public genres: string[] = [];
 
     fetchShowsList = async () => {
         try {
             const response = await fetch.get('shows')
-            this.showsList = response.data;
             useShowListStore().setShowList(response.data)
             this.setGenres();
         } catch (error) {
@@ -20,14 +19,16 @@ export class ShowsListService {
         }
     };
 
-    getShowList = async () => {
-        if (this.showsList.length) {
-            return this.showsList
-        }
 
-        await this.fetchShowsList()
-        return this.showsList;
-    }
+    // @TODO: implement caching for lists after pagination is done
+    // getShowList = async () => {
+    //     if (this.showsList.length) {
+    //         return this.showsList
+    //     }
+    //
+    //     await this.fetchShowsList()
+    //     return this.showsList;
+    // }
 
     getShow = async (showId: number) => {
         try {
@@ -49,19 +50,17 @@ export class ShowsListService {
     }
 
     setGenres = () => {
-        this.showsList.forEach((show) => {
-            show.genres.forEach((genre: string[]) => {
+        const genres: string[] = []
+        useShowListStore().getShowList.forEach((show) => {
+            show.genres.forEach((genre: string) => {
                 if (!this.genreSet.has(genre)) {
                     this.genreSet.add(genre)
                 }
             })
         })
 
-        this.genreSet.forEach((genreKey) => this.genres.push(genreKey))
-    }
-
-    getGenres = () => {
-        return this.genres
+        this.genreSet.forEach((genreKey) => genres.push(genreKey))
+        useShowListStore().setGenres(genres);
     }
 
 }

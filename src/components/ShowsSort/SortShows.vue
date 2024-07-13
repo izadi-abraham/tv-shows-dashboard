@@ -49,7 +49,7 @@ const handleSort = (event) => {
 <template>
     <!-- @TODO: check the name of components in their wrapper class -->
     <div
-        class="sort-shows-component relative"
+        class="shows-sort-component relative"
     >
         <label for="sort-shows-select">Sort by</label>
 

@@ -3,6 +3,7 @@ import { defineStore } from 'pinia'
 
 export const useShowListStore = defineStore('showList', () => {
   const showList = ref<any[]>([])
+  const genres = ref<string[]>()
   const loading = ref(false)
 
 
@@ -21,11 +22,14 @@ export const useShowListStore = defineStore('showList', () => {
     })
   }
 
-
   const sortShowsByUpdated = () => {
     showList.value.sort((firstShow, secondShow) => {
         return secondShow.updated - firstShow.updated
     })
+  }
+
+  const setGenres = (newGenres: string[]) => {
+    genres.value = newGenres
   }
 
 
@@ -33,6 +37,8 @@ export const useShowListStore = defineStore('showList', () => {
   const isLoading = computed(() => loading.value)
 
   const getShowList = computed(() => showList.value)
+
+  const getGenres = computed(() => genres.value)
 
 
   return {
@@ -42,6 +48,8 @@ export const useShowListStore = defineStore('showList', () => {
     setLoading,
     isLoading,
     sortShowsByRate,
-    sortShowsByUpdated
+    sortShowsByUpdated,
+    setGenres,
+    getGenres
   }
 })
