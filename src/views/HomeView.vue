@@ -5,6 +5,7 @@ import ShowCard from "@/components/ShowCard/ShowCard.vue";
 import ShowCardSkeleton from "@/components/ShowCard/ShowCardSkeleton.vue";
 import { useRouter } from "vue-router";
 import { useShowListStore } from "@/stores/show-list";
+import HomeViewHeading from "@/components/HomeViewHeading/HomeViewHeading.vue";
 
 
 const showListService = new ShowsListService();
@@ -20,9 +21,8 @@ const initialize = async () => {
     showListStore.setLoading(true);
     const showList = await showListService.getShowList();
     showListStore.setShowList(showList)
+    showListStore.sortShowsByRate()
     showListStore.setLoading(false);
-
-    // @TODO: call sort here when initialized
 };
 
 const redirectToShowView = (id: number) => {
@@ -40,25 +40,6 @@ const handleFilter = (event) => {
     activeFilters.value.has(clickedFilter) ? activeFilters.value.delete(clickedFilter) : activeFilters.value.add(clickedFilter);
 }
 
-const handleSort = () => {
-    showListStore.sortShows()
-}
-
-const handleSearch = async (event) => {
-    showListStore.setLoading(true);
-
-    // @TODO: clear search should be implemented
-    if (event.target.value === '') {
-        await showListService.fetchShowsList();
-        showListStore.setShowList(showListStore.getShowList)
-    }
-
-    showListService.searchShows(event.target.value).then((searchResult) => {
-        const newList = searchResult.map((result) => result.show)
-        showListStore.setShowList(newList)
-        showListStore.setLoading(false)
-    })
-}
 
 initialize();
 
@@ -107,14 +88,16 @@ watch(() => activeFilters.value.size, (sizeOfActiveFilters) => {
 // pagination
 
 // TODO: improve show view page
-
+// rating component
+// more details about the show
 
 </script>
 
 <template>
-  <main class="home-view p-8 w-full flex flex-wrap justify-center items-center">
+  <main class="home-view w-full flex flex-wrap justify-center items-center">
+      <HomeViewHeading/>
       <!-- filter -->
-      <div class="flex flex-wrap text-base font-medium">
+      <div class="flex flex-wrap p-8 text-base font-medium">
           <div
               v-for="(genre, key) in showListService.genres"
               v-bind:key
@@ -127,16 +110,7 @@ watch(() => activeFilters.value.size, (sizeOfActiveFilters) => {
               {{ genre }}
           </div>
 
-          <div class="cursor-pointer" @click="handleSort">
-              Sort >>>>>
-          </div>
-          <input type="search" @change="handleSearch">
       </div>
-
-
-      <!-- sort -->
-
-      <!-- search -->
 
       <div
           v-if="showListStore.isLoading"
@@ -156,6 +130,5 @@ watch(() => activeFilters.value.size, (sizeOfActiveFilters) => {
           :rating="show.rating?.average ? Number(show.rating.average) : 'N/A'"
           @click="() => redirectToShowView(show.id)"
       />
-      <!-- @TODO: add pagination component -->
   </main>
 </template>

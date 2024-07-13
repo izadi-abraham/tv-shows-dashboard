@@ -15,9 +15,16 @@ export const useShowListStore = defineStore('showList', () => {
     loading.value = value
   }
 
-  const sortShows = () => {
+  const sortShowsByRate = () => {
     showList.value.sort((firstShow, secondShow) => {
       return secondShow.rating.average - firstShow.rating.average
+    })
+  }
+
+
+  const sortShowsByUpdated = () => {
+    showList.value.sort((firstShow, secondShow) => {
+        return secondShow.updated - firstShow.updated
     })
   }
 
@@ -34,6 +41,7 @@ export const useShowListStore = defineStore('showList', () => {
     getShowList,
     setLoading,
     isLoading,
-    sortShows
+    sortShowsByRate,
+    sortShowsByUpdated
   }
 })

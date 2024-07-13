@@ -1,0 +1,18 @@
+<script setup lang="ts">
+import SearchShows from "@/components/SearchShows/SearchShows.vue";
+import SortShows from "@/components/SortShows/SortShows.vue";
+</script>
+
+<template>
+    <!-- @TODO: hover a card and scroll -->
+    <div
+        class="home-view-heading flex items-center w-full h-24 px-8 bg-green-600 sticky top-0"
+    >
+        <div class="w-[15%] max-w-[20rem] mr-auto">
+            <SortShows/>
+        </div>
+        <div class="w-[15%] max-w-[20rem] ml-auto">
+            <SearchShows/>
+        </div>
+    </div>
+</template>

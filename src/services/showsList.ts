@@ -1,5 +1,5 @@
 import { fetch } from "@/services/utils";
-import axios from "axios";
+import { useShowListStore } from "@/stores/show-list";
 
 
 // add interface
@@ -13,6 +13,7 @@ export class ShowsListService {
         try {
             const response = await fetch.get('shows')
             this.showsList = response.data;
+            useShowListStore().setShowList(response.data)
             this.setGenres();
         } catch (error) {
             window.alert(`There is an error, ${error}`)
@@ -40,7 +41,7 @@ export class ShowsListService {
 
     searchShows = async (query: string) => {
         try {
-            const results = await fetch.get(`/search/shows?q=:${query}`)
+            const results = await fetch.get(`/search/shows?q=${query}`)
             return results.data;
         } catch (error) {
             window.alert(`There is an error, ${error}`)
@@ -60,7 +61,7 @@ export class ShowsListService {
     }
 
     getGenres = () => {
-        console.log('Array.from(this.genreSet.values())', Array.from(this.genreSet.values()))
+        return this.genres
     }
 
 }
