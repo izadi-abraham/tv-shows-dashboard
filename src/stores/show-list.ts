@@ -3,8 +3,10 @@ import { defineStore } from 'pinia'
 
 export const useShowListStore = defineStore('showList', () => {
   const showList = ref<any[]>([])
+  const filteredList = ref<any[]>([])
   const genres = ref<string[]>()
   const loading = ref(false)
+  const activeFilters = ref<Set<string>>(new Set<string>());
 
 
   // Actions
@@ -32,6 +34,22 @@ export const useShowListStore = defineStore('showList', () => {
     genres.value = newGenres
   }
 
+  const setFilteredList = (newFilteredList: any[]) => {
+    filteredList.value = newFilteredList;
+  }
+
+  const clearFilters = () => {
+    activeFilters.value.clear()
+  }
+
+  const removeFilter = (genre: string) => {
+    getActiveFilters.value.delete(genre)
+  }
+
+  const addFilter = (genre: string) => {
+    getActiveFilters.value.add(genre)
+  }
+
 
   // Getters
   const isLoading = computed(() => loading.value)
@@ -40,16 +58,26 @@ export const useShowListStore = defineStore('showList', () => {
 
   const getGenres = computed(() => genres.value)
 
+  const getActiveFilters = computed(() => activeFilters.value)
+
+  const getFilteredList = computed(() => filteredList.value)
+
 
   return {
     showList,
-    setShowList,
     getShowList,
-    setLoading,
     isLoading,
+    getGenres,
+    getActiveFilters,
+    getFilteredList,
+    setShowList,
+    setLoading,
     sortShowsByRate,
     sortShowsByUpdated,
     setGenres,
-    getGenres
+    setFilteredList,
+    clearFilters,
+    addFilter,
+    removeFilter
   }
 })

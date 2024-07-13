@@ -779,6 +779,10 @@ video {
   z-index: 10;
 }
 
+.z-\[999999\] {
+  z-index: 999999;
+}
+
 .float-start {
   float: inline-start;
 }
@@ -1028,6 +1032,10 @@ video {
 
 .mr-auto {
   margin-right: auto;
+}
+
+.mb-8 {
+  margin-bottom: 2rem;
 }
 
 .box-border {

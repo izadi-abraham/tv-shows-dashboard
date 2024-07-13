@@ -6,6 +6,7 @@ import { useRouter } from "vue-router";
 import { useShowListStore } from "@/stores/show-list";
 import HomeViewHeading from "@/components/HomeViewHeading/HomeViewHeading.vue";
 import ShowFilter from "@/components/ShowFilter/ShowFilter.vue";
+import { computed } from "vue";
 
 
 const showListService = new ShowsListService();
@@ -33,6 +34,16 @@ const redirectToShowView = (id: number) => {
 initialize();
 
 
+// Watchers
+const currentShowList = computed(() => {
+    if (showListStore.getActiveFilters?.size) {
+        console.log('showListStore.getActiveFilters?.size', showListStore.getActiveFilters?.size)
+        console.log('showListStore.getFilteredList', showListStore.getFilteredList)
+        return showListStore.getFilteredList
+    } else {
+        return showListStore.getShowList
+    }
+})
 
 
 // @TODO: list of requirements
@@ -84,7 +95,7 @@ initialize();
           class="show-cards-wrapper flex flex-wrap justify-center items-center"
       >
           <ShowCard
-              v-for="(show, key) in showListStore.getShowList" v-bind:key
+              v-for="(show, key) in currentShowList" v-bind:key
               :image-url="show.image?.medium"
               :name="show.name"
               :genres="show.genres"

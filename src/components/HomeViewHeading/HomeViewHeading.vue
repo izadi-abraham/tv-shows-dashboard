@@ -4,9 +4,8 @@ import SortShows from "@/components/ShowsSort/SortShows.vue";
 </script>
 
 <template>
-    <!-- @TODO: hover a card and scroll -->
     <div
-        class="home-view-heading flex items-center w-full h-24 px-8 bg-green-600 sticky top-0"
+        class="home-view-heading flex items-center w-full h-24 px-8 bg-green-600 sticky top-0 z-[999999]"
     >
         <div class="w-[15%] max-w-[20rem] mr-auto">
             <SortShows/>
