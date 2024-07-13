@@ -5,13 +5,15 @@ import axios from "axios";
 // add interface
 
 export class ShowsListService {
-    private showsList = []
-
+    public showsList = [];
+    private genreSet: Set<string> = new Set();
+    public genres: string[] = [];
 
     fetchShowsList = async () => {
         try {
             const response = await fetch.get('shows')
             this.showsList = response.data;
+            this.setGenres();
         } catch (error) {
             window.alert(`There is an error, ${error}`)
         }
@@ -35,4 +37,30 @@ export class ShowsListService {
             window.alert(`There is an error, ${error}`)
         }
     }
+
+    searchShows = async (query: string) => {
+        try {
+            const results = await fetch.get(`/search/shows?q=:${query}`)
+            return results.data;
+        } catch (error) {
+            window.alert(`There is an error, ${error}`)
+        }
+    }
+
+    setGenres = () => {
+        this.showsList.forEach((show) => {
+            show.genres.forEach((genre: string[]) => {
+                if (!this.genreSet.has(genre)) {
+                    this.genreSet.add(genre)
+                }
+            })
+        })
+
+        this.genreSet.forEach((genreKey) => this.genres.push(genreKey))
+    }
+
+    getGenres = () => {
+        console.log('Array.from(this.genreSet.values())', Array.from(this.genreSet.values()))
+    }
+
 }

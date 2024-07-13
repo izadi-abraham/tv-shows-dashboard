@@ -26,7 +26,7 @@ initialize();
 
 <template>
     <div
-        class="show-view"
+        class="show-viewm h-full"
     >
 
         <!-- ShowViewHeading component -->

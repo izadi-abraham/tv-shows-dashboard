@@ -19,6 +19,7 @@ const currentShowStore = useCurrentShowStore()
     <div class="show-rating-component flex">
         <IconStar class="text-orange-400"/>
         <IconStarHalfStroke class="text-orange-400 opacity-90"/>
-        <IconStar class="text-slate-50 opacity-50"/>
+        <IconStarFullStroke/>
+        <IconStar class="text-green-900"/>
     </div>
 </template>
