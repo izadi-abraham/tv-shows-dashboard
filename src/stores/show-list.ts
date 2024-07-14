@@ -7,13 +7,11 @@ export const useShowListStore = defineStore('showList', () => {
   const genres = ref<string[]>()
   // TODO: change loading names to fetching
   const loading = ref(false)
-  const activeFilters = ref<Set<string>>(new Set<string>());
-
-
+  const currentFilter = ref<Set<string>>(new Set<string>())
 
   // Actions
   const setShowList = (newShowList: any[]) => {
-    showList.value = newShowList;
+    showList.value = newShowList
   }
 
   const setLoading = (value: boolean) => {
@@ -28,7 +26,7 @@ export const useShowListStore = defineStore('showList', () => {
 
   const sortShowsByUpdated = () => {
     showList.value.sort((firstShow, secondShow) => {
-        return secondShow.updated - firstShow.updated
+      return secondShow.updated - firstShow.updated
     })
   }
 
@@ -37,21 +35,20 @@ export const useShowListStore = defineStore('showList', () => {
   }
 
   const setFilteredList = (newFilteredList: any[]) => {
-    filteredList.value = newFilteredList;
+    filteredList.value = newFilteredList
   }
 
   const clearFilters = () => {
-    activeFilters.value.clear()
+    currentFilter.value.clear()
   }
 
   const removeFilter = (genre: string) => {
-    getActiveFilters.value.delete(genre)
+    currentFilter.value.delete(genre)
   }
 
   const addFilter = (genre: string) => {
-    getActiveFilters.value.add(genre)
+    currentFilter.value.add(genre)
   }
-
 
   // Getters
   const isLoading = computed(() => loading.value)
@@ -60,17 +57,16 @@ export const useShowListStore = defineStore('showList', () => {
 
   const getGenres = computed(() => genres.value)
 
-  const getActiveFilters = computed(() => activeFilters.value)
+  const getCurrentFilter = computed(() => currentFilter.value)
 
   const getFilteredList = computed(() => filteredList.value)
-
 
   return {
     showList,
     getShowList,
     isLoading,
     getGenres,
-    getActiveFilters,
+    getCurrentFilter,
     getFilteredList,
     setShowList,
     setFetching: setLoading,
