@@ -11,7 +11,7 @@ const showListStore = useShowListStore()
 const currentSort = ref<SortOptions>('rate')
 
 
-const sortOptions = ref<Record<'label' | 'value', SortOptions>[]>([
+    const sortOptions = ref<Record<'label' & 'value', SortOptions>[]>([
     {
         label: 'rate',
         value: 'rate'

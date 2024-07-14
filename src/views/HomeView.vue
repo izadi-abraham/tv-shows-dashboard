@@ -6,12 +6,14 @@ import { useRouter } from "vue-router";
 import { useShowListStore } from "@/stores/show-list";
 import HomeViewHeading from "@/components/HomeViewHeading/HomeViewHeading.vue";
 import ShowFilter from "@/components/ShowFilter/ShowFilter.vue";
-import { computed } from "vue";
+import { computed, ref } from "vue";
+import ShowFilterSkeleton from "@/components/ShowFilter/ShowFilterSkeleton.vue";
 
 
 const showListService = new ShowsListService();
 const router = useRouter();
 const showListStore = useShowListStore()
+const showFilters = ref(true);
 
 
 // Methods
@@ -85,8 +87,19 @@ const currentShowList = computed(() => {
 <template>
   <main class="home-view w-full flex flex-wrap justify-center items-center">
       <HomeViewHeading/>
-      <!-- filter -->
-      <ShowFilter/>
+
+      <div class="filters-wrapper flex flex-col items-center">
+          <div class="flex items-center py-8 tracking-wide">
+              <div
+                  class="font-bold cursor-pointer hover:text-gray-500"
+                  @click="() => showFilters = !showFilters"
+              >
+                  {{ showFilters ? "Hide Filters" : "Show Filters" }}
+              </div>
+          </div>
+          <ShowFilterSkeleton v-if="showListStore.isLoading"/>
+          <ShowFilter v-else-if="showFilters"/>
+      </div>
 
       <div
           v-if="showListStore.isLoading"
