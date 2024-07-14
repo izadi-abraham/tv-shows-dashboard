@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { useCurrentShowStore } from "@/stores/current-show";
-import IconStar from "@/components/icons/IconStarFullStroke.vue";
-import IconStarHalfStroke from "@/components/icons/IconStarHalfStroke.vue";
-import IconStarFullStroke from "@/components/icons/IconStarFullStroke.vue";
+import IconStar from "@/components/Icons/IconStarFullStroke.vue";
+import IconStarHalfStroke from "@/components/Icons/IconStarHalfStroke.vue";
 
 
 interface Props {
@@ -17,9 +16,12 @@ const currentShowStore = useCurrentShowStore()
 
 <template>
     <div class="show-rating-component flex">
-        <IconStar class="text-orange-400"/>
-        <IconStarHalfStroke class="text-orange-400 opacity-90"/>
-        <IconStarFullStroke/>
-        <IconStar class="text-green-900"/>
+        <IconStar class="text-orange-400 mr-1"/>
+        <IconStar class="text-orange-400 mr-1"/>
+        <IconStar class="text-orange-400 mr-1"/>
+        <IconStar class="text-orange-400 mr-1"/>
+        <IconStarHalfStroke class="text-orange-400"/>
+<!--        <IconStarFullStroke/>-->
+<!--        <IconStar class="text-green-900"/>-->
     </div>
 </template>

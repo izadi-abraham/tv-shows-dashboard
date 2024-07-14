@@ -2,9 +2,9 @@
 import { useShowListStore } from "@/stores/show-list";
 import { ShowsListService } from "@/services/showsList";
 import { ref } from "vue";
-import IconMagnifyingGlass from "@/components/icons/IconMagnifyingGlass.vue";
-import IconXMark from "@/components/icons/IconXMark.vue";
-import IconSpiner from "@/components/icons/IconSpiner.vue";
+import IconMagnifyingGlass from "@/components/Icons/IconMagnifyingGlass.vue";
+import IconXMark from "@/components/Icons/IconXMark.vue";
+import IconSpiner from "@/components/Icons/IconSpiner.vue";
 
 
 const showListService = new ShowsListService();
@@ -48,23 +48,24 @@ const clearSearch = () => {
 
 <template>
     <div
-        class="shows-search-component relative"
+        class="shows-search-component relative text-white"
     >
         <input
             type="text"
             ref="searchInput"
             v-model="searchQuery"
-            class="bg-inherit w-full p-[.1rem] pl-[.2rem] focus:border-b-2 focus:border-blue-950 focus:outline-0 placeholder:text-blue-950 placeholder:opacity-60"
+            class="bg-inherit w-full p-[.1rem] pl-[.2rem] focus:border-b-2 focus:border-white focus:outline-0 placeholder:text-white placeholder:opacity-60"
             @change="handleSearch"
             :placeholder="`${isSearchInputFocused ? 'search shows ...' : ''}`"
             @focus="() => isSearchInputFocused = true"
             @blur="() => isSearchInputFocused = false"
+            title="Press enter to perform search"
         />
         <span
-            :class="`absolute top-0 opacity-65 right-0 `"
+            class="absolute top-0 opacity-65 right-0 text-white cursor-pointer"
             @click="focusSearchInput"
         >
-            <IconMagnifyingGlass v-if="!searchQuery"/>
+            <IconMagnifyingGlass v-if="!searchQuery" />
             <IconSpiner class="animate-spin" v-else-if="showListStore.isLoading"/>
             <IconXMark
                 v-else

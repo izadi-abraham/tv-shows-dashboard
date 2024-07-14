@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import IconArrowLeft from "@/components/icons/IconArrowLeft.vue";
+import IconArrowLeft from "@/components/Icons/IconArrowLeft.vue";
 import { useRouter } from "vue-router";
 
 

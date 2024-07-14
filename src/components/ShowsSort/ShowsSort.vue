@@ -2,6 +2,7 @@
 import { useShowListStore } from "@/stores/show-list";
 import { ref } from "vue";
 import { notifyError } from "@/services/utils";
+import IconSort from "@/components/Icons/IconSort.vue";
 
 
 type SortOptions = 'rate' | 'updated';
@@ -50,9 +51,15 @@ const handleSort = (event) => {
 <template>
     <!-- @TODO: check the name of components in their wrapper class -->
     <div
-        class="shows-sort-component relative"
+        class="shows-sort-component flex"
     >
-        <label for="sort-shows-select">Sort by</label>
+        <label
+            for="sort-shows-select"
+            class="flex items-end"
+        >
+            Sort
+            <IconSort class="ml-[.1rem]"/>
+        </label>
 
         <select
             name="sort"

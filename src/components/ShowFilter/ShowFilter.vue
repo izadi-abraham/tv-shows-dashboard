@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { useShowListStore } from "@/stores/show-list";
 import { computed, ref } from "vue";
-import IconXMark from "@/components/icons/IconXMark.vue";
+import IconXMark from "@/components/Icons/IconXMark.vue";
+import SortShows from "@/components/ShowsSort/ShowsSort.vue";
 
 
 type FilterType = 'exact-match' | 'subset-match' | 'partial-match';
@@ -101,31 +102,34 @@ const filterTitle = computed(() => {
 <template>
     <div class="show-filter-component py-8 pt-2">
         <div
-            class="flex px-16 justify-start items-center w-full text-lg ml-2"
+            class="flex px-16 justify-between items-center w-full text-lg"
         >
-            <label
-                for="sort-shows-select"
-            >
-                Filter Type:
-            </label>
+           <div class="filter-type-wrapper">
+               <label
+                   for="filter-shows-select"
+               >
+                   Filter Type:
+               </label>
+               <select
+                   name="sort"
+                   id="filter-shows-select"
+                   :class="`ml-2 bg-transparent p-[.1rem] border-b-2 border-blue-950 focus:outline-0 ${currentFilter.exist ? 'cursor-pointer' : 'cursor-not-allowed'}`"
+                   :disabled="!currentFilter.exist"
+                   :value="filterType"
+                   :title="filterTitle"
+                   @change="changeFilterType"
+               >
+                   <option
+                       v-for="(option, key) in filterOptions"
+                       v-bind:key
+                       :value="option.value"
+                   >
+                       {{ option.label }}
+                   </option>
+               </select>
+           </div>
 
-            <select
-                name="sort"
-                id="sort-shows-select"
-                :class="`ml-2 bg-transparent p-[.1rem] border-b-2 border-blue-950 focus:outline-0 ${currentFilter.exist ? 'cursor-pointer' : 'cursor-not-allowed'}`"
-                :disabled="!currentFilter.exist"
-                :value="filterType"
-                :title="filterTitle"
-                @change="changeFilterType"
-            >
-                <option
-                    v-for="(option, key) in filterOptions"
-                    v-bind:key
-                    :value="option.value"
-                >
-                    {{ option.label }}
-                </option>
-            </select>
+            <SortShows class="mr-2"/>
         </div>
         <div class="flex justify-center items-center w-full h-fit flex-wrap p-8 pt-4  text-sm font-medium">
             <div

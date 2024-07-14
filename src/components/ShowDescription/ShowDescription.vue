@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useCurrentShowStore } from "@/stores/current-show";
 import { ref, watch } from "vue";
+import ShowRating from "@/components/ShowRating/ShowRating.vue";
 
 
 const currentShowStore = useCurrentShowStore()
@@ -28,9 +29,11 @@ watch(() => currentShowStore.getCurrentShow.summary, () => {
 
 <template>
     <div class="description-component">
-        <div class="font-semibold text-2xl my-2">
+        <div class="font-semibold text-2xl mb-1">
             {{ currentShowStore.getCurrentShow.name }}
         </div>
+        <!-- rating component -->
+        <ShowRating :rate="8" class="mb-1"/>
         <div>
             {{ text }}
         </div>
