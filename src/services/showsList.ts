@@ -1,5 +1,6 @@
-import { fetch } from "@/services/utils";
+import { fetch, notifyError } from "@/services/utils";
 import { useShowListStore } from "@/stores/show-list";
+import { useCurrentShowStore } from "@/stores/current-show";
 
 
 // add interface
@@ -15,10 +16,9 @@ export class ShowsListService {
             useShowListStore().setShowList(response.data)
             this.setGenres();
         } catch (error) {
-            window.alert(`There is an error, ${error}`)
+            notifyError(`There is an error, ${error}`)
         }
     };
-
 
     // @TODO: implement caching for lists after pagination is done
     // getShowList = async () => {
@@ -33,11 +33,22 @@ export class ShowsListService {
     getShow = async (showId: number) => {
         try {
             const response = await fetch.get(`shows/${showId}`)
-            return response.data;
+            useCurrentShowStore().setCurrentShow(response.data)
         } catch (error) {
-            //@TODO: add a function/component to show the error DRY, with specific message - the Notify component?
-            window.alert(`There is an error, ${error}`)
+            notifyError(`There is an error, ${error}`)
         }
+    }
+
+    fetchSeasonEpisodes = async (seasonId: number) => {
+        useCurrentShowStore().setEpisodeFetching(true)
+        const response = await fetch.get(`/shows/${seasonId}/episodes`)
+        useCurrentShowStore().setEpisodes(response.data)
+    }
+
+    fetchShowSeasons = async (showId: number) => {
+        useCurrentShowStore().setSeasonFetching(true)
+        const response = await fetch.get(`/shows/${showId}/seasons`)
+        useCurrentShowStore().setSeasons(response.data)
     }
 
     searchShows = async (query: string) => {
@@ -45,7 +56,7 @@ export class ShowsListService {
             const results = await fetch.get(`/search/shows?q=${query}`)
             return results.data;
         } catch (error) {
-            window.alert(`There is an error, ${error}`)
+            notifyError(`There is an error, ${error}`)
         }
     }
 

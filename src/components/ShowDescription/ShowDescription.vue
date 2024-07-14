@@ -17,8 +17,8 @@ const removeHTMLTags = (inputString: string) => {
 
 
 // Watchers
-watch(() => currentShowStore.currentShow.summary, () => {
-    text.value = removeHTMLTags(currentShowStore.currentShow?.summary)
+watch(() => currentShowStore.getCurrentShow.summary, () => {
+    text.value = removeHTMLTags(currentShowStore.getCurrentShow?.summary)
 }, {
     deep: true,
     immediate: true
@@ -28,8 +28,8 @@ watch(() => currentShowStore.currentShow.summary, () => {
 
 <template>
     <div class="description-component">
-        <div class="font-semibold text-2xl mb-2">
-            {{ currentShowStore.currentShow.name }}
+        <div class="font-semibold text-2xl my-2">
+            {{ currentShowStore.getCurrentShow.name }}
         </div>
         <div>
             {{ text }}

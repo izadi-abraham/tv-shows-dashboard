@@ -16,10 +16,10 @@ const showListStore = useShowListStore()
 
 // Methods
 const initialize = async () => {
-    showListStore.setLoading(true);
+    showListStore.setFetching(true);
     await showListService.fetchShowsList();
     showListStore.sortShowsByRate()
-    showListStore.setLoading(false);
+    showListStore.setFetching(false);
 };
 
 const redirectToShowView = (id: number) => {
@@ -37,41 +37,48 @@ initialize();
 // Watchers
 const currentShowList = computed(() => {
     if (showListStore.getActiveFilters?.size) {
-        console.log('showListStore.getActiveFilters?.size', showListStore.getActiveFilters?.size)
-        console.log('showListStore.getFilteredList', showListStore.getFilteredList)
         return showListStore.getFilteredList
     } else {
         return showListStore.getShowList
     }
 })
 
-
-// @TODO: list of requirements
-// users view lists (preferably horizontal list) of TV shows
-// based on different genres (drama, comedy, sports, etc.).
-
-//TODO: category of shows
-// A TV show dashboard that effectively
-// intuitive and user-friendly UI where TV shows are not only grouped by genre
-// but also categorizes and displays shows based on their genre.  Have a tab list that can see only that category????
-
-//TODO: filtering to be implemented on FE
-// You may notice there is no endpoint in the TVMaze API that cleanly returns shows by genre.
-// However, the "Show index" endpoint should contain the data you need
-
-//TODO: sorting the style and look (optional: on 2 criteria)
-// sorted according to their ratings.
-// implement the component
-
-//TODO: search component
-// search
-
-// TODO: pagination
-// pagination
-
 // TODO: improve show view page
 // rating component
 // more details about the show
+// Accordion component that shows different sections information
+// If user opens the accordion then we make the api request for that section
+
+//TODO: category of shows / Implement tab component
+// users view lists (preferably horizontal list) of TV shows
+// based on different genres (drama, comedy, sports, etc.).
+// A TV show dashboard that effectively
+// intuitive and user-friendly UI where TV shows are not only grouped by genre
+// but also categorizes and displays shows based on their genre.
+
+// TODO: add tests
+
+// TODO: Responsive design (add media queries)
+
+// TODO: add readme.md
+
+
+
+//TODO: filtering to be implemented on FE (Done)
+// You may notice there is no endpoint in the TVMaze API that cleanly returns shows by genre.
+// However, the "Show index" endpoint should contain the data you need
+
+//TODO: sorting the style and look (optional: on 2 criteria) (Done)
+// sorted according to their ratings.
+// implement the component
+
+//TODO: search component (Optional)
+// search based on typing not pressing enter
+
+// TODO: pagination (Optional)
+// pagination
+
+
 
 </script>
 

@@ -3,6 +3,7 @@ import ArrowBack from "@/components/ArrowBack/ArrowBack.vue";
 import ShowImage from "@/components/ShowImage/ShowImage.vue";
 import ShowDescription from "@/components/ShowDescription/ShowDescription.vue";
 import ShowRating from "@/components/ShowRating/ShowRating.vue";
+import ShowTabs from "@/components/ShowTabs/ShowTabs.vue";
 
 
 
@@ -16,7 +17,7 @@ import ShowRating from "@/components/ShowRating/ShowRating.vue";
             <ShowImage/>
         </div>
 
-        <div class="w-[75%] pt-32 text-white text-justify">
+        <div class="w-[80%] pt-[4rem] text-white text-justify">
 
             <!-- rating component -->
             <ShowRating :rate="8"/>
@@ -25,8 +26,5 @@ import ShowRating from "@/components/ShowRating/ShowRating.vue";
             <ShowDescription/>
 
         </div>
-
-        <!-- filter episodes component ???? -->
-        <!-- filter episodes component maybe -->
     </div>
 </template>

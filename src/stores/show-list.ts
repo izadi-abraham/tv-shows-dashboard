@@ -5,8 +5,10 @@ export const useShowListStore = defineStore('showList', () => {
   const showList = ref<any[]>([])
   const filteredList = ref<any[]>([])
   const genres = ref<string[]>()
+  // TODO: change loading names to fetching
   const loading = ref(false)
   const activeFilters = ref<Set<string>>(new Set<string>());
+
 
 
   // Actions
@@ -71,7 +73,7 @@ export const useShowListStore = defineStore('showList', () => {
     getActiveFilters,
     getFilteredList,
     setShowList,
-    setLoading,
+    setFetching: setLoading,
     sortShowsByRate,
     sortShowsByUpdated,
     setGenres,

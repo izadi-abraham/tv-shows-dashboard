@@ -3,48 +3,61 @@ import { useRoute } from "vue-router";
 import { ShowsListService } from "@/services/showsList";
 import ShowViewHeading from "@/components/ShowViewHeading/ShowViewHeading.vue";
 import { useCurrentShowStore } from "@/stores/current-show";
+import ShowTabs from "@/components/ShowTabs/ShowTabs.vue";
+import ShowMainTab from "@/components/ShowMainTab/ShowMainTab.vue";
 
 
 const route = useRoute()
 const service = new ShowsListService()
 const currentShowStore = useCurrentShowStore();
 
+const tabNames = ['Main', 'Seasons', 'Cast', 'Crew']
+
 
 // Methods
 const initialize = async () => {
-    currentShowStore.setLoading(true);
-    const currentShow = await service.getShow(Number(route.params.id));
-    currentShowStore.setCurrentShow(currentShow)
-    currentShowStore.setLoading(false);
+    currentShowStore.setFetching(true);
+    await service.getShow(Number(route.params.id));
+    currentShowStore.setFetching(false);
+    currentShowStore.setEpisodeFetching(true);
+    await service.fetchShowSeasons(Number(route.params.id));
+    currentShowStore.setEpisodeFetching(false);
+
+    console.log('currentShowStore.getEpisodes', currentShowStore.getSeasons)
 };
 
 initialize();
-
-// @TODO: It might be better to add a store for the current show to use among all components inside the show view component
 
 </script>
 
 <template>
     <div
-        class="show-viewm h-full"
+        class="show-view-component h-full"
     >
 
         <!-- ShowViewHeading component -->
         <ShowViewHeading/>
 
+        <!-- filter episodes component ???? -->
+        <!-- filter episodes component maybe -->
+        <!-- episodes component tabs component -->
         <!-- information/casting component -->
-        <!-- episodes component -->
+        <!-- status -->
+        <!-- schedule -->
+        <!-- links -->
+        <ShowTabs :tab-names="tabNames">
+            <template
+                v-slot:main
+            >
+                <ShowMainTab/>
+            </template>
+            <template
+                v-slot:seasons
+            >
+                Seasons
+            </template>
+        </ShowTabs>
 
     </div>
 
 </template>
-
-<style>
-@media (min-width: 1024px) {
-  .about {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-  }
-}
-</style>

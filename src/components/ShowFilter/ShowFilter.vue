@@ -33,6 +33,7 @@ const changeFilter = () => {
     }
 
     // @TODO: sort selected filters
+    // @TODO: we can hide the filters (toggle if user wants to) and also have a tabs component (so that is category)
     // @TODO: break the logic for type of filters into 2 methods
     // @TODO: filter out the genres with undefined/NA
     const filteredList = showListStore.getShowList.filter((show) => {

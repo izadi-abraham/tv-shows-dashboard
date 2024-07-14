@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useShowListStore } from "@/stores/show-list";
 import { ref } from "vue";
+import { notifyError } from "@/services/utils";
 
 
 type SortOptions = 'rate' | 'updated';
@@ -40,7 +41,7 @@ const handleSort = (event) => {
             showListStore.sortShowsByUpdated()
             break;
         default:
-            window.alert('Sorry! couldn\'t sort based on selected value')
+            notifyError('notifyError')
             break;
     }
 }

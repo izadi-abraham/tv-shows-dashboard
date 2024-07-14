@@ -16,12 +16,12 @@ const searchQuery = ref<string>('')
 
 // Methods
 const handleSearch = async (event?) => {
-    showListStore.setLoading(true);
+    showListStore.setFetching(true);
 
     if (searchQuery.value === '') {
         await showListService.fetchShowsList();
         showListStore.setShowList(showListStore.getShowList)
-        showListStore.setLoading(false)
+        showListStore.setFetching(false)
 
         return;
     }
@@ -30,7 +30,7 @@ const handleSearch = async (event?) => {
     showListService.searchShows(event.target.value).then((searchResult) => {
         const newList = searchResult.map((result) => result.show)
         showListStore.setShowList(newList)
-        showListStore.setLoading(false)
+        showListStore.setFetching(false)
     })
 }
 

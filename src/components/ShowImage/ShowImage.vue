@@ -9,8 +9,8 @@ const currentShowStore = useCurrentShowStore()
 <template>
     <div
         class="max-w-64 pt-8"
-        :title="currentShowStore.currentShow.name"
+        :title="currentShowStore.getCurrentShow.name"
     >
-        <img :src="`${currentShowStore.currentShow.image?.original}`" :alt="`${currentShowStore.currentShow.name} show image`">
+        <img :src="`${currentShowStore.getCurrentShow.image?.original}`" :alt="`${currentShowStore.getCurrentShow.name} show image`">
     </div>
 </template>

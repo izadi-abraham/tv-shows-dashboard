@@ -902,6 +902,26 @@ video {
   margin-bottom: auto;
 }
 
+.mx-4 {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.my-4 {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.my-2 {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
 .-mb-2 {
   margin-bottom: -0.5rem;
 }
@@ -1036,6 +1056,46 @@ video {
 
 .mb-8 {
   margin-bottom: 2rem;
+}
+
+.mb-\[\.2rem\] {
+  margin-bottom: .2rem;
+}
+
+.mr-20 {
+  margin-right: 5rem;
+}
+
+.mr-\[10rem\] {
+  margin-right: 10rem;
+}
+
+.mr-\[8rem\] {
+  margin-right: 8rem;
+}
+
+.mr-\[5rem\] {
+  margin-right: 5rem;
+}
+
+.mr-\[2rem\] {
+  margin-right: 2rem;
+}
+
+.mr-\[1\.9rem\] {
+  margin-right: 1.9rem;
+}
+
+.mr-\[9rem\] {
+  margin-right: 9rem;
+}
+
+.mr-\[7rem\] {
+  margin-right: 7rem;
+}
+
+.mr-\[3rem\] {
+  margin-right: 3rem;
 }
 
 .box-border {
@@ -1435,6 +1495,14 @@ video {
 
 .w-\[12px\] {
   width: 12px;
+}
+
+.w-\[70\%\] {
+  width: 70%;
+}
+
+.w-\[80\%\] {
+  width: 80%;
 }
 
 .min-w-12 {
@@ -2006,8 +2074,16 @@ video {
   grid-template-columns: 50px 1fr;
 }
 
+.grid-cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
 .grid-rows-\[1\.875rem_1fr_2\.5rem\] {
   grid-template-rows: 1.875rem 1fr 2.5rem;
+}
+
+.grid-rows-3 {
+  grid-template-rows: repeat(3, minmax(0, 1fr));
 }
 
 .flex-row {
@@ -2721,6 +2797,10 @@ video {
   border-bottom-width: 2px;
 }
 
+.border-r-2 {
+  border-right-width: 2px;
+}
+
 .border-solid {
   border-style: solid;
 }
@@ -3260,6 +3340,70 @@ video {
   padding-right: 0.5rem;
 }
 
+.pt-28 {
+  padding-top: 7rem;
+}
+
+.pt-24 {
+  padding-top: 6rem;
+}
+
+.pt-\[24rem\] {
+  padding-top: 24rem;
+}
+
+.pt-\[16rem\] {
+  padding-top: 16rem;
+}
+
+.pt-\[10rem\] {
+  padding-top: 10rem;
+}
+
+.pt-\[5rem\] {
+  padding-top: 5rem;
+}
+
+.pt-\[4rem\] {
+  padding-top: 4rem;
+}
+
+.pr-16 {
+  padding-right: 4rem;
+}
+
+.pr-20 {
+  padding-right: 5rem;
+}
+
+.pr-\[1\.9rem\] {
+  padding-right: 1.9rem;
+}
+
+.pr-\[5rem\] {
+  padding-right: 5rem;
+}
+
+.pr-\[10rem\] {
+  padding-right: 10rem;
+}
+
+.pr-\[9rem\] {
+  padding-right: 9rem;
+}
+
+.pr-\[12rem\] {
+  padding-right: 12rem;
+}
+
+.pr-\[15rem\] {
+  padding-right: 15rem;
+}
+
+.pr-\[13rem\] {
+  padding-right: 13rem;
+}
+
 .text-left {
   text-align: left;
 }
@@ -3692,6 +3836,11 @@ video {
   color: rgb(22 163 74 / var(--tw-text-opacity));
 }
 
+.text-black {
+  --tw-text-opacity: 1;
+  color: rgb(0 0 0 / var(--tw-text-opacity));
+}
+
 .underline {
   text-decoration-line: underline;
 }
@@ -3706,6 +3855,18 @@ video {
 
 .no-underline {
   text-decoration-line: none;
+}
+
+.decoration-green-800 {
+  text-decoration-color: #166534;
+}
+
+.decoration-gray-500 {
+  text-decoration-color: #6b7280;
+}
+
+.decoration-gray-800 {
+  text-decoration-color: #1f2937;
 }
 
 .decoration-solid {
@@ -3726,6 +3887,38 @@ video {
 
 .decoration-wavy {
   text-decoration-style: wavy;
+}
+
+.decoration-4 {
+  text-decoration-thickness: 4px;
+}
+
+.decoration-2 {
+  text-decoration-thickness: 2px;
+}
+
+.decoration-1 {
+  text-decoration-thickness: 1px;
+}
+
+.underline-offset-8 {
+  text-underline-offset: 8px;
+}
+
+.underline-offset-4 {
+  text-underline-offset: 4px;
+}
+
+.underline-offset-\[\.1rem\] {
+  text-underline-offset: .1rem;
+}
+
+.underline-offset-\[\.2rem\] {
+  text-underline-offset: .2rem;
+}
+
+.underline-offset-\[\.3rem\] {
+  text-underline-offset: .3rem;
 }
 
 .antialiased {
@@ -4288,6 +4481,10 @@ video {
   border-color: rgb(75 85 99 / var(--tw-border-opacity));
 }
 
+.hover\:bg-transparent:hover {
+  background-color: transparent;
+}
+
 .hover\:font-bold:hover {
   font-weight: 700;
 }
@@ -4332,8 +4529,29 @@ video {
   color: rgb(249 115 22 / var(--tw-text-opacity));
 }
 
+.hover\:text-gray-700:hover {
+  --tw-text-opacity: 1;
+  color: rgb(55 65 81 / var(--tw-text-opacity));
+}
+
 .hover\:underline:hover {
   text-decoration-line: underline;
+}
+
+.hover\:decoration-green-600:hover {
+  text-decoration-color: #16a34a;
+}
+
+.hover\:decoration-gray-500:hover {
+  text-decoration-color: #6b7280;
+}
+
+.hover\:decoration-gray-400:hover {
+  text-decoration-color: #9ca3af;
+}
+
+.hover\:decoration-1:hover {
+  text-decoration-thickness: 1px;
 }
 
 .hover\:shadow-2xl:hover {

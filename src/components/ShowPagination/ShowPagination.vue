@@ -1,8 +1,4 @@
 <script setup lang="ts">
-import { useCurrentShowStore } from "@/stores/current-show";
-
-
-const currentShowStore = useCurrentShowStore()
 
 </script>
 
