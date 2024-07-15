@@ -4,6 +4,8 @@ import { defineStore } from 'pinia'
 export const useShowListStore = defineStore('showList', () => {
   const showList = ref<any[]>([])
   const filteredList = ref<any[]>([])
+  const searchResult = ref<any[]>([])
+  const searchQuery = ref('')
   const genres = ref<string[]>()
   // TODO: change loading names to fetching
   const loading = ref(false)
@@ -38,6 +40,14 @@ export const useShowListStore = defineStore('showList', () => {
     filteredList.value = newFilteredList
   }
 
+  const setSearchResult = (newSearchResult: any[]) => {
+    searchResult.value = newSearchResult
+  }
+
+  const setSearchQuery = (newSearchQuery: string) => {
+    searchQuery.value = newSearchQuery
+  }
+
   const clearFilters = () => {
     currentFilter.value.clear()
   }
@@ -61,6 +71,10 @@ export const useShowListStore = defineStore('showList', () => {
 
   const getFilteredList = computed(() => filteredList.value)
 
+  const getSearchResult = computed(() => searchResult.value)
+
+  const getSearchQuery = computed(() => searchQuery.value)
+
   return {
     showList,
     getShowList,
@@ -68,6 +82,8 @@ export const useShowListStore = defineStore('showList', () => {
     getGenres,
     getCurrentFilter,
     getFilteredList,
+    getSearchResult,
+    getSearchQuery,
     setShowList,
     setFetching: setLoading,
     sortShowsByRate,
@@ -76,6 +92,8 @@ export const useShowListStore = defineStore('showList', () => {
     setFilteredList,
     clearFilters,
     addFilter,
-    removeFilter
+    removeFilter,
+    setSearchResult,
+    setSearchQuery
   }
 })

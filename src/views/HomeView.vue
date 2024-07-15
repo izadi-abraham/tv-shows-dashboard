@@ -55,6 +55,8 @@ const handleShowFilter = () => {
 const currentShowList = computed(() => {
   if (showListStore.getCurrentFilter?.size) {
     return showListStore.getFilteredList
+  } else if (showListStore.getSearchQuery){
+    return showListStore.getSearchResult
   } else {
     return showListStore.getShowList
   }
@@ -83,6 +85,8 @@ const currentShowList = computed(() => {
 // @TODO: Responsive design (add media queries)
 
 // @TODO: add readme.md
+
+// @TODO: clean up
 
 // @TODO: no result found in search response
 

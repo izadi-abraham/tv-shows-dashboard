@@ -136,7 +136,7 @@ const filterTitle = computed(() => {
         </select>
       </div>
 
-      <SortShows class="mr-2 hidden sm:block" />
+      <SortShows class="mr-2 hidden sm:flex" />
     </div>
     <div
       class="flex justify-center items-center w-full h-fit flex-wrap p-2 sm:p-8 pt-4 text-sm font-medium"

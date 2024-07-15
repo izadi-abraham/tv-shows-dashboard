@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useShowListStore } from '@/stores/show-list'
 import { ShowsListService } from '@/services/showsList'
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import IconMagnifyingGlass from '@/components/Icons/IconMagnifyingGlass.vue'
 import IconXMark from '@/components/Icons/IconXMark.vue'
 import IconSpiner from '@/components/Icons/IconSpiner.vue'
@@ -9,62 +9,69 @@ import IconSpiner from '@/components/Icons/IconSpiner.vue'
 // @TODO: fix IconSpinner typo
 
 const emit = defineEmits<{
-  (event: 'searchInputFocused'): void
-  (event: 'searched'): void
+  (event: 'magnifierClicked'): void
+  (event: 'searchPerformed'): void
 }>()
 
 interface Props {
-  isSmallScreen?: boolean
   isModalOpen?: boolean
 }
 
-const props = withDefaults(defineProps<Props>(), {
-  isSmallScreen: false
-})
+const props = defineProps<Props>()
 
 const showListService = new ShowsListService()
 const showListStore = useShowListStore()
 const searchInput = ref<HTMLInputElement | null>(null)
 const isSearchInputFocused = ref(false)
-const searchQuery = ref<string>('')
+const searchLoading = ref(false)
 
 // Methods
-const handleSearch = async (event?) => {
+const performSearch = async (event?) => {
   showListStore.setFetching(true)
+  searchLoading.value = true
 
-  if (searchQuery.value === '') {
-    await showListService.fetchShowsList()
-    showListStore.setShowList(showListStore.getShowList)
-    showListStore.setFetching(false)
-
-    return
-  }
-
-  // @TODO: handle undefined values for imageUrls
   showListService.searchShows(event.target.value).then((searchResult) => {
-    const newList = searchResult.map((result) => result.show)
-    showListStore.setShowList(newList)
+    const mappedSearchResult = searchResult.map((result) => result.show)
+    showListStore.setSearchResult(mappedSearchResult)
     showListStore.setFetching(false)
+    searchLoading.value = false
   })
 
-  emit('searched')
+  showListStore.setSearchQuery(event.target.value)
+
+  emit('searchPerformed')
 }
 
-const focusSearchInput = () => {
-  emit('searchInputFocused');
-  (searchInput.value as HTMLInputElement).focus()
+const magnifierClicked = () => {
+    emit('magnifierClicked');
+    (searchInput.value as HTMLInputElement).focus()
 }
 
 const clearSearch = () => {
-  searchQuery.value = ''
-  handleSearch()
+  showListStore.setSearchQuery('')
+  showListStore.setSearchResult([])
 }
 
 onMounted(() => {
   if (props.isModalOpen) {
-    focusSearchInput()
+      (searchInput.value as HTMLInputElement).focus()
   }
 })
+
+
+// Watchers
+const showMagnifyingGlass = computed(() => {
+    return !props.isModalOpen && !showListStore.getSearchQuery && !searchLoading.value && !isSearchInputFocused.value;
+})
+
+const showSpinner = computed(() => {
+    return searchLoading.value;
+})
+
+const showIconX = computed(() => {
+    return showListStore.getSearchQuery;
+})
+
 </script>
 
 <template>
@@ -72,15 +79,12 @@ onMounted(() => {
     <input
       type="text"
       ref="searchInput"
-      v-model="searchQuery"
-      :class="{
-        [`bg-inherit p-[.1rem] pl-[.2rem] placeholder:opacity-60 focus:outline-0`]: true,
-        [`w-0 border-0  placeholder:text-white
-                sm:w-full sm:focus:border-b-2 sm:focus:border-white`]: !isSmallScreen,
-        [`text-green-600 placeholder:text-green-600
-                w-full border-b-2 border-green-700`]: isSmallScreen
-      }"
-      @keyup.enter="handleSearch"
+      :value="showListStore.getSearchQuery"
+      @change="(event) => showListStore.setSearchQuery(event.target.value)"
+      :class="`bg-inherit p-[.1rem] pl-[.2rem] placeholder:opacity-60 focus:outline-0
+      placeholder:text-green-600 w-full focus:border-b-2 focus:border-green-700 text-green-700
+      sm:focus:border-white sm:placeholder:text-white sm:text-white`"
+      @keyup.enter="performSearch"
       :placeholder="`${isSearchInputFocused || isModalOpen ? 'search shows ...' : ''}`"
       @focus="() => (isSearchInputFocused = true)"
       @blur="() => (isSearchInputFocused = false)"
@@ -88,18 +92,18 @@ onMounted(() => {
     />
     <span
       class="outside-modal absolute top-0 opacity-65 right-0 text-white cursor-pointer"
-      @click="focusSearchInput"
     >
       <IconMagnifyingGlass
-        v-if="!searchQuery"
+        v-show="showMagnifyingGlass"
+        @click="magnifierClicked"
         class="text-sm sm:text-2xl"
       />
       <IconSpiner
-        class="animate-spin"
-        v-else-if="showListStore.isLoading"
+          v-show="showSpinner"
+          class="animate-spin"
       />
       <IconXMark
-        v-else
+        v-show="showIconX"
         @click="clearSearch"
         :class="`cursor-pointer ${isModalOpen ? 'text-green-600' : ''}`"
       />

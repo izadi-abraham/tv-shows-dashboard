@@ -8,7 +8,7 @@ import { useObserver } from "@/composables/useObserver";
 const isModalOpen = ref(false)
 const { isSmallScreen } = useObserver()
 
-const handleSearchFocus = () => {
+const magnifierClicked = () => {
     if (isSmallScreen.value) {
         isModalOpen.value = true
     }
@@ -26,17 +26,17 @@ const handleSearchFocus = () => {
       TV Shows And Series
     </div>
     <div class="h-fit w-fit">
-      <ShowsSearch @search-input-focused="handleSearchFocus"/>
+      <ShowsSearch
+          @magnifier-clicked="magnifierClicked"
+      />
 
       <Modal
         :is-open="isModalOpen"
         @modal-closed="() => (isModalOpen = false)"
       >
         <ShowsSearch
-          :is-small-screen="isSmallScreen"
           :is-modal-open="isModalOpen"
-          @search-input-focused="handleSearchFocus"
-          @searched="() => (isModalOpen = false)"
+          @search-performed="() => (isModalOpen = false)"
         />
       </Modal>
     </div>
