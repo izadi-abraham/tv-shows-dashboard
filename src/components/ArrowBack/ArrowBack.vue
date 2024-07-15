@@ -15,7 +15,7 @@ const goBack = () => {
 
 <template>
     <div
-        class="w-fit text-gray-300 cursor-pointer"
+        class="w-fit md:hidden mr-auto text-gray-300 cursor-pointer"
         @click="goBack()"
     >
         <IconArrowLeft/>

@@ -25,7 +25,7 @@ const networkCountry = computed(() => {
 
 <template>
     <div
-        class="show-main-tab-component w-[80%] ml-auto tracking-widest"
+        class="show-main-tab-component tracking-widest"
     >
         <!-- @TODO: add rating to the table and skeleton -->
         <div
@@ -43,7 +43,7 @@ const networkCountry = computed(() => {
             <div class="text-justify"> {{ currentShowStore.getCurrentShow[property.toLowerCase()] }} </div>
         </div>
         <div
-            class="grid grid-cols-2 gap-2 border-b-2 border-white p-2 bg-gray-100"
+            class="grid grid-cols-2 gap-2 border-b-2 border-white p-2 bg-gray-100 truncate"
         >
             <div class="font-semibold"> IMDB Link </div>
             <a :href="imdbLink" target="_blank" class="text-gray-800 underline decoration-1 decoration-gray-800 underline-offset-[.3rem] hover:text-gray-400 hover:decoration-gray-400 hover:bg-transparent text-justify"> {{ imdbLink }} </a>

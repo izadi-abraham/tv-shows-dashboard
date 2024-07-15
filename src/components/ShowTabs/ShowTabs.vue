@@ -19,16 +19,14 @@ const changeActiveTab = (tabName: string) => {
     activeTab.value = tabName
 }
 
-console.log('slotNames', slotNames.value)
-
 </script>
 
 <template>
     <div
-        class="show-tabs-component py-4 px-16"
+        class="show-tabs-component pt-8 pb-16 px-16"
     >
         <ul
-            class="flex justify-center items-center h-16"
+            class="flex justify-between md:justify-center items-center h-16"
         >
             <li
                 v-for="(tabName, key) in props.tabNames"

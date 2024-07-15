@@ -2,19 +2,12 @@
 import { useShowListStore } from '@/stores/show-list'
 import { computed, ref } from 'vue'
 
+
 type FilterType = 'exact-match' | 'subset-match' | 'partial-match'
 export const filterType = ref('partial-match')
 
-const currentFilter = computed(() => {
-  const currentFilter = []
-  useShowListStore().getCurrentFilter.forEach((filterKey) => currentFilter.push(filterKey))
-  return {
-    names: currentFilter,
-    count: currentFilter.length,
-    exist: !!currentFilter.length
-  }
-})
 
+// Methods
 export const changeFilter = () => {
   // @TODO: sort selected filters
   // @TODO: we can hide the filters (toggle if user wants to) and also have a tabs component (so that is category)
@@ -40,11 +33,28 @@ export const changeFilter = () => {
   })
   useShowListStore().setFilteredList(filteredList)
 }
-</script>
 
+
+// Watchers
+const currentFilter = computed(() => {
+    const currentFilter = []
+    useShowListStore().getCurrentFilter.forEach((filterKey) => currentFilter.push(filterKey))
+    return {
+        names: currentFilter,
+        count: currentFilter.length,
+        exist: !!currentFilter.length
+    }
+})
+
+</script>
 <script setup lang="ts">
 import IconXMark from '@/components/Icons/IconXMark.vue'
 import SortShows from '@/components/ShowsSort/ShowsSort.vue'
+
+
+const emit = defineEmits<{
+    (event: 'apply-filter'): void
+}>()
 
 const filterOptions = ref<Record<'label' & 'value', FilterType>[]>([
   {
@@ -60,6 +70,7 @@ const filterOptions = ref<Record<'label' & 'value', FilterType>[]>([
     value: 'partial-match'
   }
 ])
+
 
 // Methods
 const addFilter = (genre) => {
@@ -79,8 +90,8 @@ const changeFilterType = (event) => {
   changeFilter()
 }
 
-// Watchers
 
+// Watchers
 const filterTitle = computed(() => {
   if (!useShowListStore().getCurrentFilter.size) {
     return 'Please select at least one filter.'
@@ -103,11 +114,11 @@ const filterTitle = computed(() => {
 
 <template>
   <div class="show-filter-component py-8 pt-2">
-    <div class="flex px-16 justify-between items-center w-full text-lg">
+    <div class="flex px-16 justify-center mb-8 sm:justify-between sm:m-0 items-center w-full text-lg">
       <div class="filter-type-wrapper">
         <label for="filter-shows-select"> Filter Type: </label>
         <select
-          name="sort"
+          name="filter-shows-select"
           id="filter-shows-select"
           :class="`ml-2 bg-transparent p-[.1rem] border-b-2 border-blue-950 focus:outline-0 ${currentFilter.exist ? 'cursor-pointer' : 'cursor-not-allowed'}`"
           :disabled="!currentFilter.exist"
@@ -125,10 +136,10 @@ const filterTitle = computed(() => {
         </select>
       </div>
 
-      <SortShows class="mr-2" />
+      <SortShows class="mr-2 hidden sm:block" />
     </div>
     <div
-      class="flex justify-center items-center w-full h-fit flex-wrap p-8 pt-4 text-sm font-medium"
+      class="flex justify-center items-center w-full h-fit flex-wrap p-2 sm:p-8 pt-4 text-sm font-medium"
     >
       <div
         v-for="(genre, key) in useShowListStore().getGenres"
@@ -158,5 +169,12 @@ const filterTitle = computed(() => {
         </div>
       </div>
     </div>
+
+      <button
+          class="w-fit mx-auto px-4 block mt-6 border-[1px] rounded-md active:border-gray-800 sm:hidden"
+          @click="() => emit('apply-filter')"
+      >
+          Apply
+      </button>
   </div>
 </template>

@@ -23,7 +23,6 @@ const initialize = async () => {
     await service.fetchShowSeasons(Number(route.params.id));
     currentShowStore.setEpisodeFetching(false);
 
-    console.log('currentShowStore.getEpisodes', currentShowStore.getSeasons)
 };
 
 initialize();
@@ -54,7 +53,17 @@ initialize();
             <template
                 v-slot:seasons
             >
-                Seasons
+                <div class="flex justify-center items-center p-16 text-xl text-purple-700 font-semibold">Seasons ...</div>
+            </template>
+            <template
+                v-slot:cast
+            >
+                <div class="flex justify-center items-center p-16 text-xl text-orange-500 font-semibold">Cast ...</div>
+            </template>
+            <template
+                v-slot:crew
+            >
+                <div class="flex justify-center items-center p-16 text-xl text-fuchsia-500 font-semibold">Crew ...</div>
             </template>
         </ShowTabs>
 

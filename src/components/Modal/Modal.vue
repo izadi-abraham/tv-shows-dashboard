@@ -25,7 +25,7 @@ const emit = defineEmits<{
                 <div class="modal-header flex w-full p-8 justify-end">
                     <IconXMark class="text-black" @click="() => emit('modalClosed')"/>
                 </div>
-                <div class="modal-body w-full px-20">
+                <div class="modal-body w-full">
                     <slot> default slot </slot>
                 </div>
             </div>

@@ -8,11 +8,17 @@ import HomeViewHeading from '@/components/HomeViewHeading/HomeViewHeading.vue'
 import ShowFilter from '@/components/ShowFilter/ShowFilter.vue'
 import { computed, ref } from 'vue'
 import ShowFilterSkeleton from '@/components/ShowFilter/ShowFilterSkeleton.vue'
+import { useObserver } from "@/composables/useObserver";
+import Modal from "@/components/Modal/Modal.vue";
+import SortShows from "@/components/ShowsSort/ShowsSort.vue";
+
 
 const showListService = new ShowsListService()
 const router = useRouter()
 const showListStore = useShowListStore()
-const showFilters = ref(true)
+const { isSmallScreen } = useObserver()
+const showFilterSection = ref(false)
+const showFilterModal = ref(false)
 
 // Methods
 const initialize = async () => {
@@ -33,6 +39,18 @@ const redirectToShowView = (id: number) => {
 
 initialize()
 
+const handleShowFilter = () => {
+
+    if (showListStore.isLoading) {
+        return;
+    } else if (isSmallScreen.value) {
+        showFilterModal.value = true;
+    } else {
+        showFilterSection.value = !showFilterSection.value
+    }
+}
+
+
 // Watchers
 const currentShowList = computed(() => {
   if (showListStore.getCurrentFilter?.size) {
@@ -42,57 +60,81 @@ const currentShowList = computed(() => {
   }
 })
 
-// TODO: improve show view page
+
+</script>
+
+<!--
+
+// @TODO: improve show view page
 // rating component
 // more details about the show
 // Accordion component that shows different sections information
 // If user opens the accordion then we make the api request for that section
 
-//TODO: category of shows / Implement tab component
+// @TODO: category of shows / Implement tab component
 // users view lists (preferably horizontal list) of TV shows
 // based on different genres (drama, comedy, sports, etc.).
 // A TV show dashboard that effectively
 // intuitive and user-friendly UI where TV shows are not only grouped by genre
 // but also categorizes and displays shows based on their genre.
 
-// TODO: add tests
+// @TODO: add tests
 
-// TODO: Responsive design (add media queries)
+// @TODO: Responsive design (add media queries)
 
-// TODO: add readme.md
+// @TODO: add readme.md
 
-// TODO: no result found in search response
+// @TODO: no result found in search response
 
-//TODO: filtering to be implemented on FE (Done)
+// @TODO: filtering to be implemented on FE (Done)
 // You may notice there is no endpoint in the TVMaze API that cleanly returns shows by genre.
 // However, the "Show index" endpoint should contain the data you need
 
-//TODO: sorting the style and look (optional: on 2 criteria) (Done)
+// @TODO: sorting the style and look (optional: on 2 criteria) (Done)
 // sorted according to their ratings.
 // implement the component
 
-//TODO: search component (Optional)
+// @TODO: search component (Optional)
 // search based on typing not pressing enter
 
-// TODO: pagination (Optional)
+// @TODO: pagination (Optional)
 // pagination
-</script>
+ -->
 
 <template>
   <main class="home-view w-full flex flex-wrap justify-center items-center">
     <HomeViewHeading />
 
-    <div class="filters-wrapper flex flex-col items-center">
-      <div class="flex items-center py-8 tracking-wide">
-        <div
-          class="font-bold cursor-pointer hover:text-gray-500"
-          @click="() => (showFilters = !showFilters)"
-        >
-          {{ showFilters ? 'Hide Filters' : 'Show Filters' }}
-        </div>
+    <div
+        class="filter-button flex w-full items-center justify-around py-8"
+    >
+      <div
+          class="cursor-pointer hover:text-gray-500"
+          @click="handleShowFilter"
+      >
+          <div
+              v-if="showFilterSection && !isSmallScreen"
+              class="tracking-wide font-bold"
+          >
+              Hide Filters</div>
+          <div
+              v-else
+              class="tracking-wide font-bold"
+          >
+              Show Filters
+          </div>
       </div>
-      <ShowFilterSkeleton v-if="showListStore.isLoading" />
-      <ShowFilter v-else-if="showFilters" />
+        <SortShows class="mr-2 block sm:hidden" />
+    </div>
+
+    <div
+        class="filter-section-wrapper flex flex-col items-center"
+    >
+      <ShowFilterSkeleton v-if="showListStore.isLoading && !isSmallScreen" />
+      <ShowFilter v-else-if="showFilterSection && !isSmallScreen" />
+      <Modal :is-open="showFilterModal" @modal-closed="() => showFilterModal = false">
+          <ShowFilter @apply-filter="() => showFilterModal = false"/>
+      </Modal>
     </div>
 
     <div

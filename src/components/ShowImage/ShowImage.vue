@@ -8,7 +8,7 @@ const currentShowStore = useCurrentShowStore()
 
 <template>
     <div
-        class="max-w-64 pt-8"
+        class="pt-8"
         :title="currentShowStore.getCurrentShow.name"
     >
         <img
