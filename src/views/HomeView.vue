@@ -61,6 +61,8 @@ const currentShowList = computed(() => {
 
 // TODO: add readme.md
 
+// TODO: no result found in search response
+
 //TODO: filtering to be implemented on FE (Done)
 // You may notice there is no endpoint in the TVMaze API that cleanly returns shows by genre.
 // However, the "Show index" endpoint should contain the data you need

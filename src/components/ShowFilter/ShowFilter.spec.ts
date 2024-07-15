@@ -4,7 +4,7 @@ import { mockShows, onlyDramaGenre } from './ShowFilter.mock'
 import { useShowListStore } from '@/stores/show-list'
 import { createPinia } from 'pinia'
 
-describe('filtering shows', () => {
+describe('filtering shows based on different criteria', () => {
   useShowListStore(createPinia())
 
   beforeEach(() => {
@@ -33,10 +33,10 @@ describe('filtering shows', () => {
   })
 
   it('should filter shows that has whether Romance or Thriller in their genres', function () {
-    useShowListStore().addFilter('Drama')
+    useShowListStore().addFilter('Romance')
     useShowListStore().addFilter('Thriller')
-    filterType.value = 'subset-match'
+    filterType.value = 'partial-match'
     changeFilter()
-    expect(useShowListStore().getFilteredList.length).toBe(5)
+    expect(useShowListStore().getFilteredList.length).toBe(8)
   })
 })
