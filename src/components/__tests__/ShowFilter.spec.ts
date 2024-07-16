@@ -1,7 +1,7 @@
 import { afterAll, beforeEach, describe, expect, it, vi } from 'vitest'
-import { changeFilter, filterType } from './ShowFilter.vue'
-import { mockShows, onlyDramaGenre } from './ShowFilter.mock'
-import { useShowListStore } from '@/stores/show-list'
+import { changeFilter, filterType } from '../ShowFilter/ShowFilter.vue'
+import { mockShows, onlyDramaGenre } from '../ShowFilter/ShowFilter.mock'
+import { useShowListStore } from '../../stores/show-list'
 import { createPinia } from 'pinia'
 
 describe('filtering shows based on different criteria', () => {

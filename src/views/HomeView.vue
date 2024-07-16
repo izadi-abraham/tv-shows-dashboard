@@ -9,7 +9,7 @@ import ShowFilter from '@/components/ShowFilter/ShowFilter.vue'
 import { computed, ref } from 'vue'
 import ShowFilterSkeleton from '@/components/ShowFilter/ShowFilterSkeleton.vue'
 import { useObserver } from "@/composables/useObserver";
-import Modal from "@/components/Modal/Modal.vue";
+import Modal from "@/components/GenericModal/GenericModal.vue";
 import SortShows from "@/components/ShowsSort/ShowsSort.vue";
 
 
@@ -19,6 +19,7 @@ const showListStore = useShowListStore()
 const { isSmallScreen } = useObserver()
 const showFilterSection = ref(false)
 const showFilterModal = ref(false)
+
 
 // Methods
 const initialize = async () => {
@@ -30,7 +31,7 @@ const initialize = async () => {
 
 const redirectToShowView = (id: number) => {
   router.push({
-    name: 'about',
+    name: 'show-view',
     params: {
       id
     }
@@ -64,46 +65,6 @@ const currentShowList = computed(() => {
 
 
 </script>
-
-<!--
-
-// @TODO: improve show view page
-// rating component
-// more details about the show
-// Accordion component that shows different sections information
-// If user opens the accordion then we make the api request for that section
-
-// @TODO: category of shows / Implement tab component
-// users view lists (preferably horizontal list) of TV shows
-// based on different genres (drama, comedy, sports, etc.).
-// A TV show dashboard that effectively
-// intuitive and user-friendly UI where TV shows are not only grouped by genre
-// but also categorizes and displays shows based on their genre.
-
-// @TODO: add tests
-
-// @TODO: Responsive design (add media queries)
-
-// @TODO: add readme.md
-
-// @TODO: clean up
-
-// @TODO: no result found in search response
-
-// @TODO: filtering to be implemented on FE (Done)
-// You may notice there is no endpoint in the TVMaze API that cleanly returns shows by genre.
-// However, the "Show index" endpoint should contain the data you need
-
-// @TODO: sorting the style and look (optional: on 2 criteria) (Done)
-// sorted according to their ratings.
-// implement the component
-
-// @TODO: search component (Optional)
-// search based on typing not pressing enter
-
-// @TODO: pagination (Optional)
-// pagination
- -->
 
 <template>
   <main class="home-view w-full flex flex-wrap justify-center items-center">

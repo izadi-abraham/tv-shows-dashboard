@@ -3,12 +3,8 @@ import { useShowListStore } from "@/stores/show-list";
 import { useCurrentShowStore } from "@/stores/current-show";
 
 
-// add interface
-
 export class ShowsListService {
-    // public showsList = [];
     private genreSet: Set<string> = new Set();
-    public genres: string[] = [];
 
     fetchShowsList = async () => {
         try {
@@ -20,16 +16,6 @@ export class ShowsListService {
         }
     };
 
-    // @TODO: implement caching for lists after pagination is done
-    // getShowList = async () => {
-    //     if (this.showsList.length) {
-    //         return this.showsList
-    //     }
-    //
-    //     await this.fetchShowsList()
-    //     return this.showsList;
-    // }
-
     getShow = async (showId: number) => {
         try {
             const response = await fetch.get(`shows/${showId}`)
@@ -37,12 +23,6 @@ export class ShowsListService {
         } catch (error) {
             notifyError(`There is an error, ${error}`)
         }
-    }
-
-    fetchSeasonEpisodes = async (seasonId: number) => {
-        useCurrentShowStore().setEpisodeFetching(true)
-        const response = await fetch.get(`/shows/${seasonId}/episodes`)
-        useCurrentShowStore().setEpisodes(response.data)
     }
 
     fetchShowSeasons = async (showId: number) => {

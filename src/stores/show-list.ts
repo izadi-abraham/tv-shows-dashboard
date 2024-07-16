@@ -7,9 +7,9 @@ export const useShowListStore = defineStore('showList', () => {
   const searchResult = ref<any[]>([])
   const searchQuery = ref('')
   const genres = ref<string[]>()
-  // TODO: change loading names to fetching
   const loading = ref(false)
   const currentFilter = ref<Set<string>>(new Set<string>())
+
 
   // Actions
   const setShowList = (newShowList: any[]) => {
@@ -59,6 +59,7 @@ export const useShowListStore = defineStore('showList', () => {
   const addFilter = (genre: string) => {
     currentFilter.value.add(genre)
   }
+
 
   // Getters
   const isLoading = computed(() => loading.value)

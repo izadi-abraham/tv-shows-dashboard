@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useCurrentShowStore } from "@/stores/current-show";
 import { ref } from "vue";
 
 
@@ -9,7 +8,7 @@ interface Props {
 
 const props = defineProps<Props>()
 
-const currentShowStore = useCurrentShowStore()
+
 const activeTab = ref<string>(props.tabNames[0])
 const slotNames = ref(props.tabNames.map((tabName) => tabName.toLowerCase()));
 

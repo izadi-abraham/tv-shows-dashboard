@@ -6,7 +6,6 @@ import IconMagnifyingGlass from '@/components/Icons/IconMagnifyingGlass.vue'
 import IconXMark from '@/components/Icons/IconXMark.vue'
 import IconSpiner from '@/components/Icons/IconSpiner.vue'
 
-// @TODO: fix IconSpinner typo
 
 const emit = defineEmits<{
   (event: 'magnifierClicked'): void
@@ -24,6 +23,7 @@ const showListStore = useShowListStore()
 const searchInput = ref<HTMLInputElement | null>(null)
 const isSearchInputFocused = ref(false)
 const searchLoading = ref(false)
+
 
 // Methods
 const performSearch = async (event?) => {

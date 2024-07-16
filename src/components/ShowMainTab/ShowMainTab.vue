@@ -27,7 +27,6 @@ const networkCountry = computed(() => {
     <div
         class="show-main-tab-component tracking-widest"
     >
-        <!-- @TODO: add rating to the table and skeleton -->
         <div
             class="grid grid-cols-2 gap-2 border-b-2 border-white p-2 bg-gray-100"
         >

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import ShowsSearch from '@/components/ShowsSearch/ShowsSearch.vue'
-import Modal from "@/components/Modal/Modal.vue";
+import Modal from "@/components/GenericModal/GenericModal.vue";
 import { ref } from "vue";
 import { useObserver } from "@/composables/useObserver";
 
@@ -8,6 +8,8 @@ import { useObserver } from "@/composables/useObserver";
 const isModalOpen = ref(false)
 const { isSmallScreen } = useObserver()
 
+
+// Methods
 const magnifierClicked = () => {
     if (isSmallScreen.value) {
         isModalOpen.value = true

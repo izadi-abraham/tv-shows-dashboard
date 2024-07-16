@@ -3,7 +3,7 @@ import { useRoute } from "vue-router";
 import { ShowsListService } from "@/services/showsList";
 import ShowViewHeading from "@/components/ShowViewHeading/ShowViewHeading.vue";
 import { useCurrentShowStore } from "@/stores/current-show";
-import ShowTabs from "@/components/ShowTabs/ShowTabs.vue";
+import ShowTabs from "@/components/GenericTabs/GenericTabs.vue";
 import ShowMainTab from "@/components/ShowMainTab/ShowMainTab.vue";
 
 
@@ -31,19 +31,9 @@ initialize();
 
 <template>
     <div
-        class="show-view-component h-full"
+        class="show-view-component h-full w-full"
     >
-
-        <!-- ShowViewHeading component -->
         <ShowViewHeading/>
-
-        <!-- filter episodes component ???? -->
-        <!-- filter episodes component maybe -->
-        <!-- episodes component tabs component -->
-        <!-- information/casting component -->
-        <!-- status -->
-        <!-- schedule -->
-        <!-- links -->
         <ShowTabs :tab-names="tabNames">
             <template
                 v-slot:main
@@ -66,7 +56,5 @@ initialize();
                 <div class="flex justify-center items-center p-16 text-xl text-fuchsia-500 font-semibold">Crew ...</div>
             </template>
         </ShowTabs>
-
     </div>
-
 </template>

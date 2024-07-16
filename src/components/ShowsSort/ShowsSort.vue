@@ -7,12 +7,9 @@ import IconSort from "@/components/Icons/IconSort.vue";
 
 type SortOptions = 'rate' | 'updated';
 
-
 const showListStore = useShowListStore()
 const currentSort = ref<SortOptions>('rate')
-
-
-    const sortOptions = ref<Record<'label' & 'value', SortOptions>[]>([
+const sortOptions = ref<Record<'label' & 'value', SortOptions>[]>([
     {
         label: 'rate',
         value: 'rate'
@@ -49,7 +46,6 @@ const handleSort = (event) => {
 </script>
 
 <template>
-    <!-- @TODO: check the name of components in their wrapper class -->
     <div
         class="shows-sort-component flex"
     >
